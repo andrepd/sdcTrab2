@@ -9,39 +9,41 @@
 #include <cstdlib>
 #include <cstdio>
 //#include <string>
-//#include <vector>
+#include <valarray>
+#include <vector>
+#include <algorithm>
 //#include <iostream>
 //#include <cmath>
 
 //using namespace std;
 
-const double K=-1,tf=10,h=0.1;
+const double tf=10,h=0.1;
 
+// Begin user area
+
+// Number of dof
 const int N=2;
 
-double x[]={2,0};
+// Initial values
+double init[]={2,0}
 
-double f1(double x[]) {
+// User constants
+const double K = -1;
+
+std::valarray<double> x(init,N);
+
+double f1(std::valarray<double> x) {
     return x[1];
 }
 
-double f2(double x[]) {
+double f2(std::valarray<double> x) {
     return -K*x[0];
 }
 
-typedef double (*f_T)(double x[]);
+typedef double (*f_T)(std::valarray<double> x);
 
-f_T f[N];
+std::vector<f_T> f {f1,f2};
 
-f[0] = f1;
-f[1] = f2;
-
-operator*(double a, double* b) {
-    for(int i=0;i<N;i++) {
-        b[i]*=a;
-    }
-
-}
 
 int main(int argc, char** argv) {
 //    if (argc!=4) {
@@ -49,26 +51,31 @@ int main(int argc, char** argv) {
 //        return 1;
 //    }
 
-    double k1[N] = {};
-    double k2[N] = {};
-    double k3[N] = {};
-    double k4[N] = {};
+    std::valarray<double> k1 {};
+    std::valarray<double> k2 {};
+    std::valarray<double> k3 {};
+    std::valarray<double> k4 {};
+
+    std::valarray<double> a;
 
     for (double t=0;t<tf;t+=h) {
         for(int i=N;i<N;i++) {
-            k1[i] = f[i](x[i][i]);
+            k1[i] = f[i](x);
         }
 
         for(int i=N;i<N;i++) {
-            k2[i] = f[i](x[i]+h/2*k1[i]);
+            a=h*k1/2;
+            k2[i] = f[i](x+a);
         }
 
         for(int i=N;i<N;i++) {
-            k3[i] = f[i](x[i]+h/2*k2[i]);
+            a=h/2*k2;
+            k3[i] = f[i](x+a);
         }
 
         for(int i=N;i<N;i++) {
-            k4[i] = f[i](x[i]+h*k3[i]);
+            a=h*k3;
+            k4[i] = f[i](x+a);
         }
 
         for(int i=N;i<N;i++) {
