@@ -17,32 +17,45 @@
 
 //using namespace std;
 
-const double tf=10,h=0.1;
 
+
+//////////////////////////////////////////////////////
 // Begin user area
+
+// Time interval and step
+const double tf=10,h=0.1;
 
 // Number of dof
 const int N=2;
 
 // Initial values
-double init[]={2,0}
+double init[]={2,0};
 
 // User constants
 const double K = -1;
 
+// Function definitions
+// d/dt (x[n]) = fn
+
+double f1(std::valarray<double> xx) {
+    return xx[1];
+}
+
+double f2(std::valarray<double> xx) {
+    return K*xx[0];
+}
+
+// End user area
+//////////////////////////////////////////////////////
+
+
+
 std::valarray<double> x(init,N);
 
-double f1(std::valarray<double> x) {
-    return x[1];
-}
-
-double f2(std::valarray<double> x) {
-    return -K*x[0];
-}
-
-typedef double (*f_T)(std::valarray<double> x);
+typedef double (*f_T)(std::valarray<double>);
 
 std::vector<f_T> f {f1,f2};
+
 
 
 int main(int argc, char** argv) {
@@ -51,39 +64,39 @@ int main(int argc, char** argv) {
 //        return 1;
 //    }
 
-    std::valarray<double> k1 {};
-    std::valarray<double> k2 {};
-    std::valarray<double> k3 {};
-    std::valarray<double> k4 {};
+    std::valarray<double> k1 (0.,N);
+    std::valarray<double> k2 (0.,N);
+    std::valarray<double> k3 (0.,N);
+    std::valarray<double> k4 (0.,N);
 
-    std::valarray<double> a;
+    std::valarray<double> a (0.,N);
 
     for (double t=0;t<tf;t+=h) {
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             k1[i] = f[i](x);
         }
 
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             a=h*k1/2;
             k2[i] = f[i](x+a);
         }
 
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             a=h/2*k2;
             k3[i] = f[i](x+a);
         }
 
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             a=h*k3;
             k4[i] = f[i](x+a);
         }
 
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             x[i] += h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
         }
 
         std::printf("%f ",t);
-        for(int i=N;i<N;i++) {
+        for(int i=0;i<N;i++) {
             std::printf("%f ", x[i]);
         }
         std::printf("\n");
