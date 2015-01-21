@@ -1,9 +1,5 @@
 /* Program for integration of differential equations using the fourth
    order Runge-Kutta method.
-
-   The equations are as follows. Edit f if needed.
-   x. = f(x)
-
 */
 
 #include <cstdlib>
@@ -18,12 +14,11 @@
 //using namespace std;
 
 
-
 //////////////////////////////////////////////////////
 // Begin user area
 
 // Time interval and step
-const double tf=2000,h=0.02;
+const double tf=2000,h=0.004;
 
 // Number of dependent variables
 const int N=3;
@@ -43,32 +38,22 @@ double f1(std::valarray<double> xx) {
 }
 
 double f2(std::valarray<double> xx) {
-    return r*xx[0]-xx[1]-xx[0]*xx[2];
+    return (r-xx[2])*xx[0]-xx[1];
 }
 
 double f3(std::valarray<double> xx) {
     return xx[0]*xx[1]-b*xx[2];
 }
 
-//double f4(std::valarray<double> xx) {
-//    return 24.4+std::sin(0.1*t);
-//}
-
 // End user area
 //////////////////////////////////////////////////////
 
 
-
-std::valarray<double> x(init,N);
-
-typedef double (*f_T)(std::valarray<double>);
-std::vector<f_T> f {f1,f2,f3};
-
 int main(int argc, char** argv) {
-//    if (argc!=4) {
-//        std::printf("Usage: rk4 x0 tf h\nProgram for integration of differential equations using the fourth order Runge-Kutta method.\n\nx0 is the value of x for t=0, tf is the simulation duration, h is the time step.");
-//        return 1;
-//    }
+	std::valarray<double> x(init,N);
+
+	typedef double (*f_T)(std::valarray<double>);
+	std::vector<f_T> f {f1,f2,f3};
 
     std::valarray<double> k1 (0.,N);
     std::valarray<double> k2 (0.,N);
@@ -102,21 +87,7 @@ int main(int argc, char** argv) {
             x[i] += h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
         }
 
-        //std::printf("%f %f %f %f\n",t,x[0],x[1],x[2]);
         std::printf("%f ",t);
-
-        //for(int i=0;i<N;i++) {
-        //    std::printf("%f ", x[i]);
-        //}
-        //std::printf("\b\n");
-
-		/*for (int i = 0; i < N; i++) {
-    		std::printf("%f", x[i]);
-    		if (i != N-1) {
-       			std::puts(" ");
-    		}
-		}*/
-
 		for(int i=0;i<N-1;i++) {
             std::printf("%f ", x[i]);
         }

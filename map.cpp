@@ -1,17 +1,14 @@
 #include <cstdlib>
 #include <cstdio>
-//#include <string>
-//#include <valarray>
 #include <vector>
 //#include <algorithm>
-//#include <iostream>
 #include <cmath>
 #include <time.h>
 
 using namespace std;
 
 int main(int argc, char** argv) {
-	for (double r=0;r<10;r+=0.001) {
+	for (double r=0;r<10;r+=0.0001) {
 		srand(time(NULL));
 		double x=static_cast <double> (rand())  / static_cast <double> (RAND_MAX/10);
 		//fprintf(stderr,"%f\n",x);
@@ -25,6 +22,5 @@ int main(int argc, char** argv) {
 			printf("%f %f\n",r,x);
 		}
 		//fprintf(stderr,"%f %f\n",r,x);
-		//getchar();
 	}
 }

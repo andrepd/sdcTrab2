@@ -1,7 +1,5 @@
 #include <cstdlib>
 #include <cstdio>
-//#include <string>
-//#include <valarray>
 #include <vector>
 //#include <algorithm>
 //#include <iostream>
@@ -31,19 +29,15 @@ int main(int argc, char** argv) {
 	int l=d[0].size();
 	
 	int x,y;
-	//vector <int> q;
 	srand(time(NULL));
 	for (double e=0.1;e<emax;e*=ef) {
-		int qq=0;
+		int q=0;
 		for (int i=0;i<N;i++) {
-			//x[0]=rand(); x[1]=rand(); x[2]=rand();
-			//y[0]=rand(); y[1]=rand(); y[2]=rand();
 			int x = rand() % l; int y= rand() % l;
-			if (pow(d[0][x]-d[0][y],2) + pow(d[1][x]-d[1][y],2) + pow(d[2][x]-d[2][y],2) < e*e) qq++;
+			if (pow(d[0][x]-d[0][y],2) + pow(d[1][x]-d[1][y],2) + pow(d[2][x]-d[2][y],2) < e*e) q++;
 		}
-		//q.push_back(qq);
-		//double g=qq/N/N;
-		printf("%f %d\n",e,qq);
-		fprintf(stderr,"%f %d\n",e,qq);
+		//double g=q/N/N;
+		printf("%f %d\n",e,q);
+		fprintf(stderr,"%f %d\n",e,q);
 	}
 }
