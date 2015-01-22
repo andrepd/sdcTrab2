@@ -1,5 +1,5 @@
-/* Program for integration of differential equations using the fourth
-   order Runge-Kutta method.
+/* Programa para integrar equacoes diferenciais ordinarias usando o metodo
+   Runge-Kutta de 4a ordem.
 */
 
 #include <cstdlib>
@@ -12,7 +12,6 @@
 #include <cmath>
 
 //using namespace std;
-
 
 //////////////////////////////////////////////////////
 // Begin user area
@@ -48,7 +47,6 @@ long double f3(std::valarray<long double> x) {
 
 // End user area
 //////////////////////////////////////////////////////
-
 
 int main(int argc, char** argv) {
 	std::valarray<long double> x(init,N);

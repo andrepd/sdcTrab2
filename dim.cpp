@@ -38,6 +38,6 @@ int main(int argc, char** argv) {
 		}
 		//double g=q/N/N;
 		printf("%f %d\n",e,q);
-		fprintf(stderr,"%f %d\n",e,q);
+		//fprintf(stderr,"%f %d\n",e,q);
 	}
 }
