@@ -28,7 +28,8 @@ long double init[]={2,0,0};
 // User constants
 const long double s = 10;
 const long double b = 8/3;
-long double r = 24.4;
+long double r = 24.4;	//para o exercício 1.a)
+//long double r = 28;		//para o exercicio 1.b)
 
 // Function definitions
 //   d/dt (x[n]) = fn
@@ -62,7 +63,7 @@ int main(int argc, char** argv) {
     std::valarray<long double> a (0.,N);
 
     for (long double t=0;t<tf;t+=h) {
-		r=24.4+sin(0.1*t);
+		r=24.4+sin(0.1*t);	//para o exercicio 1.a)
         for(int i=0;i<N;i++) {
             k1[i] = f[i](x);
         }
