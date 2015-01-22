@@ -28,7 +28,7 @@ long double init[]={2,0,0};
 // User constants
 const long double s = 10;
 const long double b = 8/3;
-long double r = 24.4;	//para o exercício 1.a)
+long double r = 24.4;	//para o exercicio 1.a)
 //long double r = 28;		//para o exercicio 1.b)
 
 // Function definitions
